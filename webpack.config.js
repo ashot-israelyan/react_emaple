@@ -1,19 +1,49 @@
-module.exports = {
-    entry: './src/app.js',
-    output: {
-        path: __dirname + '/public/dist',
-        filename: "bundle.js"
-    },
-    module: {
-        loaders: [
-            {
-                exclude: /(node_modules)/,
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+module.exports = env => {
+    const isProduction = env === 'production';
+    const CSSExtract = new ExtractTextPlugin('styles.css');
+
+    return {
+        entry: ['babel-polyfill', './public/src/app.js'],
+        output: {
+            path: path.join(__dirname, 'public', 'dist'),
+            filename: "bundle.js"
+        },
+        module: {
+            rules: [{
                 loader: 'babel-loader',
+                test: /\.js$/,
+                exclude: /(node_modules)/,
                 query: {
                     presets: ['es2015', 'react']
                 }
-            }
-        ]
-    },
-    watch: true
+            }, {
+                test: /\.css$/,
+                use: CSSExtract.extract({
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
+                    ]
+                })
+            }]
+        },
+        plugins: [
+            CSSExtract
+        ],
+        devtool: isProduction ? 'source-map' : 'inline-source-map',
+        watch: !isProduction
+    };
 };
