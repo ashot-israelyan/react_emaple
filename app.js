@@ -20,15 +20,13 @@ db.on('error', err => {
     console.log(err);
 });
 
+app.set('trust proxy', true);
 app.use('/static', express.static(`${__dirname}/public`));
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('*', (req, res) => {
-    res.render('index');
-});
 
 app.get('/api/articles', (req, res) => {
    Article.find({})
@@ -95,6 +93,9 @@ app.delete('/api/articles/:id', (req, res) => {
         .catch(err => res.send({status: 'error', message: err.message}))
 });
 
+app.get('*', (req, res) => {
+    res.render('index');
+});
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

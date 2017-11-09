@@ -6,7 +6,7 @@ export const addArticle = (article) => ({
 });
 
 export const startAddArticle = (articleData = {}) => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         const {
             title = '',
             author = '',
@@ -49,13 +49,14 @@ export const getArticles = (articles) => ({
 
 export const startGetArticles = () => {
     return (dispatch) => {
-
-        return axios.get('https://jsonplaceholder.typicode.com/posts', {
-            headers: {'Access-Control-Allow-Origin': '*'},
+        return axios.get('/api/articles', {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+            },
         })
-            .then(articles => {
-                console.log(articles.data);
-                dispatch(getArticles(articles.data));
+            .then(response => {
+                dispatch(getArticles(response.data.articles));
             });
     }
 };

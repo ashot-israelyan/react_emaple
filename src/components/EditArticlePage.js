@@ -5,11 +5,11 @@ import { startEditArticle, startRemoveArticle } from '../actions/articles';
 
 export class EditArticlePage extends React.Component {
     onSubmit = article => {
-        this.props.startEditArticle(this.props.article.id, article);
+        this.props.startEditArticle(this.props.article._id, article);
         this.props.history.push('/');
     };
     onRemove = () => {
-        this.props.startRemoveArticle({ id: this.props.article.id });
+        this.props.startRemoveArticle({ id: this.props.article._id });
         this.props.history.push('/');
     };
 
@@ -34,7 +34,7 @@ export class EditArticlePage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-    article: state.articles.find(article => article.id === props.match.params.id)
+    article: state.articles.find(article => article._id === props.match.params.id)
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

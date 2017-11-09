@@ -50,7 +50,7 @@ export default class ArticleForm extends Component {
                     placeholder="Title"
                     autoFocus
                     className="form-control"
-                    value={this.state.description}
+                    value={this.state.title}
                     onChange={this.onTitleChange}
                 />
                 <input
