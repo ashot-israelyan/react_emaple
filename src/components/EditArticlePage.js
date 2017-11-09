@@ -18,13 +18,14 @@ export class EditArticlePage extends React.Component {
             <div>
                 <div className="page-header">
                     <div className="container">
-                        <h1 className="page-title">Edit Expense</h1>
+                        <h1 className="page-title">Edit Article</h1>
                     </div>
                 </div>
                 <div className="container">
                     <ArticleForm
                         article={this.props.article}
                         onSubmit={this.onSubmit}
+                        formType="put"
                     />
                     <button className="btn btn-success" onClick={this.onRemove}>Remove Expense</button>
                 </div>

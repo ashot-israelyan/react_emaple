@@ -14,8 +14,8 @@ const AppRouter = () => (
             <Header/>
             <Switch>
                 <Route exact={true} path="/" component={Articles} />
-                <Route path="/article/:id" component={EditArticlePage}/>
                 <Route path="/article/create" component={AddArticlePage}/>
+                <Route path="/article/:id/edit" component={EditArticlePage}/>
             </Switch>
         </div>
     </Router>

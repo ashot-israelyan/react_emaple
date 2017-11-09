@@ -8,17 +8,17 @@ export default (state = articlesReducerDefaultState, action) => {
                 action.article
             ];
         case 'REMOVE_ARTICLE':
-            return state.filter(({id}) => id !== action.id);
+            return state.filter(({_id}) => _id !== action.id);
         case 'EDIT_ARTICLE':
             return state.map(article => {
-                if (article.id === action.id) {
+                if (article._id === action.id) {
                     return {
                         ...article,
                         ...action.updates
                     };
-                } else {
-                    return article;
                 }
+
+                return article;
             });
         case 'GET_ARTICLES':
             return action.articles;

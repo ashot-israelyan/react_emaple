@@ -5,9 +5,9 @@ export default class ArticleForm extends Component {
         super(props);
 
         this.state = {
-            title: props.article ? props.article.title : '',
-            author: props.article ? props.article.author : '',
-            body: props.article ? props.article.body : ''
+            title: props.article && props.formType == 'put' ? props.article.title : '',
+            author: props.article && props.formType == 'put' ? props.article.author : '',
+            body: props.article && props.formType == 'put' ? props.article.body : ''
         };
     }
 

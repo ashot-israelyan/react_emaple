@@ -15,7 +15,8 @@ export const startAddArticle = (articleData = {}) => {
 
         const article = {title, author, body};
 
-        return dispatch(addArticle(article));
+        return axios.post('/api/articles/add', {title, author, body})
+            .then(result => dispatch(addArticle(article)));
     }
 };
 
@@ -26,19 +27,19 @@ export const removeArticle = ({id} = {}) => ({
 
 export const startRemoveArticle = ({id} = {}) => {
     return (dispatch) => {
-        dispatch(removeArticle({id}));
+        return axios.delete(`/api/articles/${id}`).then(result => dispatch(removeArticle({id})));
     }
 };
 
 export const editArticle = (id, updates) => ({
-    type: 'EDIT_EXPENSE',
+    type: 'EDIT_ARTICLE',
     id,
     updates
 });
 
 export const startEditArticle = (id, updates) => {
     return (dispatch) => {
-        dispatch(editArticle(id, updates));
+        return axios.put(`/api/articles/${id}`, {...updates}).then(() => dispatch(editArticle(id, updates)));
     }
 };
 
@@ -49,14 +50,6 @@ export const getArticles = (articles) => ({
 
 export const startGetArticles = () => {
     return (dispatch) => {
-        return axios.get('/api/articles', {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => {
-                dispatch(getArticles(response.data.articles));
-            });
+        return axios.get('/api/articles').then(response => dispatch(getArticles(response.data.articles)));
     }
 };
