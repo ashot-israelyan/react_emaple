@@ -7,7 +7,7 @@ module.exports = env => {
     const CSSExtract = new ExtractTextPlugin('styles.css');
 
     return {
-        entry: ['babel-polyfill', './public/src/app.js'],
+        entry: ['babel-polyfill', './src/app.js'],
         output: {
             path: path.join(__dirname, 'public', 'dist'),
             filename: "bundle.js"
@@ -16,10 +16,7 @@ module.exports = env => {
             rules: [{
                 loader: 'babel-loader',
                 test: /\.js$/,
-                exclude: /(node_modules)/,
-                query: {
-                    presets: ['es2015', 'react']
-                }
+                exclude: /(node_modules)/
             }, {
                 test: /\.css$/,
                 use: CSSExtract.extract({
