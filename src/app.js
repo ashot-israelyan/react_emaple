@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { startGetArticles }from './actions/articles';
-import './styles/main.css';
+import './styles/main.scss';
 
 const store = configureStore();
 const jsx = (
